@@ -1,0 +1,253 @@
+{
+  "providers": [
+    {
+      "type": "remote",
+      "tag": "sub",
+      "url": "https://sub.ardye.tk:8443/share/col/all?token=huMrmJ8LPPP-62KJrZbOL",
+      "user_agent": "sing-box",
+      "download_detour": "direct",
+      "update_interval": "24h"
+    }
+  ],
+  "log": {
+    "level": "error",
+    "timestamp": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "store_fakeip": true,
+      "store_rdrc": true
+    },
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "ui",
+      "external_ui_download_url": "https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip",
+      "access_control_allow_origin": "http://127.0.0.1"
+    }
+  },
+  "dns": {
+    "independent_cache": true,
+    "servers": [
+      {
+        "tag": "ali",
+        "type": "https",
+        "server": "223.5.5.5"
+      },
+      {
+        "tag": "fakeip",
+        "type": "fakeip",
+        "inet4_range": "198.18.0.0/15",
+        "inet6_range": "fc00::/18"
+      }
+    ],
+    "rules": [
+      {
+        "clash_mode": "Direct",
+        "server": "ali"
+      },
+      {
+        "clash_mode": "Global",
+        "server": "fakeip"
+      },
+      {
+        "rule_set": "AWAvenue-Ads-Rule",
+        "action": "reject"
+      },
+      {
+        "rule_set": "geosite-cn",
+        "server": "ali"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "fakeip"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "address": [
+        "172.18.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "interface_name": "tun0",
+      "auto_route": true,
+      "auto_redirect": true,
+      "strict_route": true
+    },
+    {
+      "type": "redirect",
+      "listen": "::",
+      "listen_port": 7891
+    },
+    {
+      "type": "tproxy",
+      "listen": "::",
+      "listen_port": 1536
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "default",
+      "type": "selector",
+      "outbounds": [
+        "auto",
+        "select",
+        "hk",
+        "tw",
+        "jp",
+        "sg",
+        "us",
+        "other",
+        "direct"
+      ]
+    },
+    {
+      "tag": "auto",
+      "type": "urltest",
+      "outbounds": [],
+      "use_all_providers": true
+    },
+    {
+      "tag": "select",
+      "type": "selector",
+      "outbounds": [],
+      "use_all_providers": true
+    },
+    {
+      "tag": "ai",
+      "type": "selector",
+      "outbounds": [
+        "default",
+        "auto",
+        "select",
+        "hk",
+        "tw",
+        "jp",
+        "sg",
+        "us",
+        "other",
+        "direct"
+      ],
+      "use_all_providers": true
+    },
+    {
+      "tag": "hk",
+      "type": "urltest",
+      "outbounds": [],
+      "use_all_providers": true,
+      "include": "香港"
+    },
+    {
+      "tag": "tw",
+      "type": "urltest",
+      "outbounds": [],
+      "use_all_providers": true,
+      "include": "台湾"
+    },
+    {
+      "tag": "jp",
+      "type": "urltest",
+      "outbounds": [],
+      "use_all_providers": true,
+      "include": "日本"
+    },
+    {
+      "tag": "sg",
+      "type": "urltest",
+      "outbounds": [],
+      "use_all_providers": true,
+      "include": "新加坡"
+    },
+    {
+      "tag": "us",
+      "type": "urltest",
+      "outbounds": [],
+      "use_all_providers": true,
+      "include": "美国"
+    },
+    {
+      "tag": "other",
+      "type": "urltest",
+      "outbounds": [],
+      "use_all_providers": true,
+      "exclude": "香港|台湾|日本|新加坡|美国"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    }
+  ],
+  "route": {
+    "default_domain_resolver": {
+      "server": "ali"
+    },
+    "auto_detect_interface": true,
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "Global",
+        "outbound": "default"
+      },
+      {
+        "rule_set": "AWAvenue-Ads-Rule",
+        "action": "reject"
+      },
+      {
+        "rule_set": "ai_non_ip",
+        "outbound": "ai"
+      },
+      {
+        "rule_set": [
+          "geosite-cn",
+          "geoip-cn"
+        ],
+        "outbound": "direct"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "AWAvenue-Ads-Rule",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.github.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox-regex.srs"
+      },
+      {
+        "tag": "ai_non_ip",
+        "type": "remote",
+        "format": "source",
+        "url": "https://ruleset.skk.moe/sing-box/non_ip/ai.json"
+      },
+      {
+        "tag": "geosite-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.github.com/lyc8503/sing-box-rules/rule-set-geosite/geosite-cn.srs"
+      },
+      {
+        "tag": "geoip-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.github.com/lyc8503/sing-box-rules/rule-set-geoip/geoip-cn.srs"
+      }
+    ]
+  }
+}
