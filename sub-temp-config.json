@@ -17,6 +17,7 @@
     },
     "cache_file": {
       "enabled": true,
+      "store_fakeip": true,
       "store_rdrc": true
     }
   },
@@ -38,6 +39,10 @@
         "tag": "CNNIC DNS",
         "address": "1.2.4.8",
         "detour": "🐢 直连"
+      },
+      {
+        "tag": "FakeIP",
+        "address": "fakeip"
       }
     ],
     "rules": [
@@ -58,6 +63,14 @@
         "action": "route",
         "server": "国际 DNS",
         "rewrite_ttl": 3600
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "action": "route",
+        "server": "FakeIP"
       },
       {
         "rule_set": "geosite_cn",
@@ -81,6 +94,11 @@
         "client_subnet": "1.2.4.8/24"
       }
     ],
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
+    },
     "final": "国际 DNS",
     "strategy": "prefer_ipv4",
     "disable_cache": false,
@@ -383,7 +401,6 @@
   ],
   "route": {
     "auto_detect_interface": true,
-    "override_android_vpn": true,
     "final": "🚀 默认出站",
     "rules": [
       {
@@ -504,7 +521,7 @@
         "tag": "geosite_category-games@cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/category-games@cn.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games@cn.srs",
         "download_detour": "🐢 直连",
         "update_interval": "3d"
       },
@@ -512,7 +529,7 @@
         "tag": "geosite_category-games",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/category-games.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games.srs",
         "download_detour": "🐢 直连",
         "update_interval": "3d"
       },
@@ -520,7 +537,7 @@
         "tag": "geoip_google",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/google.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/google.srs",
         "download_detour": "🐢 直连",
         "update_interval": "3d"
       },
@@ -528,7 +545,7 @@
         "tag": "geosite_google",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/google.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/google.srs",
         "download_detour": "🐢 直连",
         "update_interval": "3d"
       },
@@ -536,7 +553,7 @@
         "tag": "geosite_onedrive",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/onedrive.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/onedrive.srs",
         "download_detour": "🐢 直连",
         "update_interval": "3d"
       },
@@ -544,7 +561,7 @@
         "tag": "geosite_openai",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/openai.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs",
         "download_detour": "🐢 直连",
         "update_interval": "3d"
       },
@@ -552,7 +569,7 @@
         "tag": "geosite_microsoft",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/microsoft.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/microsoft.srs",
         "download_detour": "🐢 直连",
         "update_interval": "3d"
       },
@@ -560,7 +577,7 @@
         "tag": "geosite_geolocation-!cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/geolocation-!cn.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
         "download_detour": "🐢 直连",
         "update_interval": "3d"
       },
@@ -568,7 +585,7 @@
         "tag": "geoip_cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/cn.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
         "download_detour": "🐢 直连",
         "update_interval": "3d"
       },
@@ -576,7 +593,7 @@
         "tag": "geosite_cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/cn.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
         "download_detour": "🐢 直连",
         "update_interval": "3d"
       }
