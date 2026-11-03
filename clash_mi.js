@@ -429,222 +429,128 @@ function main(config) {
   // ================================================================
   // 9.1 Service definitions (crypto exchanges / banks & brokers)
   //
-  // Every service owns a dedicated selector group so its traffic can
-  // be routed independently.
+  // Two selector groups cover all services:
   //
-  //   crypto  -> 一键代理 by default
-  //   finance -> DIRECT by default
+  //   虚拟交易所 -> 一键代理 by default
+  //   银行券商   -> DIRECT by default
   //
-  // The Perfect-Rules repository has no per-service rule files for
-  // these, therefore their domains are declared here. Proxy groups
-  // and routing rules are both generated from this table, so a new
-  // service only has to be added once.
+  // The Perfect-Rules repository has no rule files for these, so the
+  // domains are declared here. Proxy groups and routing rules are
+  // both generated from this table, therefore a new service only has
+  // to be appended to the matching rule list.
   // ================================================================
 
   var serviceGroupDefs = [
 
-    // -------------------- Crypto exchanges --------------------
-
     {
-      "name": "币安",
+      "name": "虚拟交易所",
       "category": "crypto",
       "rules": [
+
+        // 币安
         "DOMAIN-SUFFIX,binance.com",
         "DOMAIN-SUFFIX,binance.us",
         "DOMAIN-SUFFIX,binance.org",
         "DOMAIN-SUFFIX,binance.vision",
         "DOMAIN-SUFFIX,binancefuture.com",
-        "DOMAIN-SUFFIX,bnbstatic.com"
-      ]
-    },
+        "DOMAIN-SUFFIX,bnbstatic.com",
 
-    {
-      "name": "欧易",
-      "category": "crypto",
-      "rules": [
+        // 欧易
         "DOMAIN-SUFFIX,okx.com",
         "DOMAIN-SUFFIX,okx.com.hk",
         "DOMAIN-SUFFIX,okex.com",
-        "DOMAIN-SUFFIX,oklink.com"
-      ]
-    },
+        "DOMAIN-SUFFIX,oklink.com",
 
-    {
-      "name": "Bybit",
-      "category": "crypto",
-      "rules": [
+        // Bybit
         "DOMAIN-SUFFIX,bybit.com",
-        "DOMAIN-SUFFIX,bybit.com.hk"
-      ]
-    },
+        "DOMAIN-SUFFIX,bybit.com.hk",
 
-    {
-      "name": "Coinbase",
-      "category": "crypto",
-      "rules": [
-        "DOMAIN-SUFFIX,coinbase.com"
-      ]
-    },
+        // Coinbase
+        "DOMAIN-SUFFIX,coinbase.com",
 
-    {
-      "name": "Kraken",
-      "category": "crypto",
-      "rules": [
+        // Kraken
         "DOMAIN-SUFFIX,kraken.com",
-        "DOMAIN-SUFFIX,krakenfx.com"
-      ]
-    },
+        "DOMAIN-SUFFIX,krakenfx.com",
 
-    {
-      "name": "KuCoin",
-      "category": "crypto",
-      "rules": [
-        "DOMAIN-SUFFIX,kucoin.com"
-      ]
-    },
+        // KuCoin
+        "DOMAIN-SUFFIX,kucoin.com",
 
-    {
-      "name": "Gate.io",
-      "category": "crypto",
-      "rules": [
+        // Gate.io
         "DOMAIN-SUFFIX,gate.io",
-        "DOMAIN-SUFFIX,gate.com"
-      ]
-    },
+        "DOMAIN-SUFFIX,gate.com",
 
-    {
-      "name": "Bitget",
-      "category": "crypto",
-      "rules": [
-        "DOMAIN-SUFFIX,bitget.com"
-      ]
-    },
+        // Bitget
+        "DOMAIN-SUFFIX,bitget.com",
 
-    {
-      "name": "HTX",
-      "category": "crypto",
-      "rules": [
+        // HTX
         "DOMAIN-SUFFIX,htx.com",
-        "DOMAIN-SUFFIX,huobi.com"
-      ]
-    },
+        "DOMAIN-SUFFIX,huobi.com",
 
-    {
-      "name": "MEXC",
-      "category": "crypto",
-      "rules": [
-        "DOMAIN-SUFFIX,mexc.com"
-      ]
-    },
+        // MEXC
+        "DOMAIN-SUFFIX,mexc.com",
 
-    {
-      "name": "Crypto.com",
-      "category": "crypto",
-      "rules": [
+        // Crypto.com
         "DOMAIN-SUFFIX,crypto.com"
+
       ]
     },
 
-    // -------------------- Banks & brokers --------------------
-
     {
-      "name": "iFastGB",
+      "name": "银行券商",
       "category": "finance",
       "rules": [
+
+        // iFastGB
         "DOMAIN-SUFFIX,ifastgb.com",
-        "DOMAIN-SUFFIX,ifastglobalbank.com"
-      ]
-    },
+        "DOMAIN-SUFFIX,ifastglobalbank.com",
 
-    {
-      "name": "Wise",
-      "category": "finance",
-      "rules": [
+        // Wise
         "DOMAIN-SUFFIX,wise.com",
-        "DOMAIN-SUFFIX,transferwise.com"
-      ]
-    },
+        "DOMAIN-SUFFIX,transferwise.com",
 
-    {
-      "name": "长桥",
-      "category": "finance",
-      "rules": [
+        // 长桥
         "DOMAIN-SUFFIX,longbridge.com",
         "DOMAIN-SUFFIX,longbridge.hk",
         "DOMAIN-SUFFIX,longbridge.sg",
-        "DOMAIN-SUFFIX,longportapp.com"
-      ]
-    },
+        "DOMAIN-SUFFIX,longportapp.com",
 
-    {
-      "name": "OCBC",
-      "category": "finance",
-      "rules": [
+        // OCBC
         "DOMAIN-SUFFIX,ocbc.com",
         "DOMAIN-SUFFIX,ocbc.com.sg",
         "DOMAIN-SUFFIX,ocbc.com.my",
-        "DOMAIN-SUFFIX,ocbc.com.hk"
-      ]
-    },
+        "DOMAIN-SUFFIX,ocbc.com.hk",
 
-    {
-      "name": "N26",
-      "category": "finance",
-      "rules": [
+        // N26
         "DOMAIN-SUFFIX,n26.com",
-        "DOMAIN-SUFFIX,n26.de"
-      ]
-    },
+        "DOMAIN-SUFFIX,n26.de",
 
-    {
-      "name": "盈透证券",
-      "category": "finance",
-      "rules": [
+        // 盈透证券
         "DOMAIN-SUFFIX,interactivebrokers.com",
         "DOMAIN-SUFFIX,interactivebrokers.hk",
         "DOMAIN-SUFFIX,ibkr.com",
         "DOMAIN-SUFFIX,ibkr.hk",
-        "DOMAIN-SUFFIX,ibkr.info"
-      ]
-    },
+        "DOMAIN-SUFFIX,ibkr.info",
 
-    {
-      "name": "富途",
-      "category": "finance",
-      "rules": [
+        // 富途
         "DOMAIN-SUFFIX,futuhk.com",
         "DOMAIN-SUFFIX,futunn.com",
         "DOMAIN-SUFFIX,futunn.net",
-        "DOMAIN-SUFFIX,futuholdings.com"
-      ]
-    },
+        "DOMAIN-SUFFIX,futuholdings.com",
 
-    {
-      "name": "老虎证券",
-      "category": "finance",
-      "rules": [
+        // 老虎证券
         "DOMAIN-SUFFIX,tigerbrokers.com",
         "DOMAIN-SUFFIX,tigerbrokers.hk",
         "DOMAIN-SUFFIX,tigerbrokers.sg",
-        "DOMAIN-SUFFIX,itiger.com"
-      ]
-    },
+        "DOMAIN-SUFFIX,itiger.com",
 
-    {
-      "name": "嘉信理财",
-      "category": "finance",
-      "rules": [
+        // 嘉信理财
         "DOMAIN-SUFFIX,schwab.com",
         "DOMAIN-SUFFIX,schwab.com.hk",
-        "DOMAIN-SUFFIX,schwabplan.com"
-      ]
-    },
+        "DOMAIN-SUFFIX,schwabplan.com",
 
-    {
-      "name": "Revolut",
-      "category": "finance",
-      "rules": [
+        // Revolut
         "DOMAIN-SUFFIX,revolut.com"
+
       ]
     }
 
