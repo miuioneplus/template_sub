@@ -432,7 +432,7 @@ function main(config) {
   // Two selector groups cover all services:
   //
   //   虚拟交易所 -> 一键代理 by default
-  //   银行券商   -> DIRECT by default
+  //   银行券商   -> 国内直连 by default
   //
   // The Perfect-Rules repository has no rule files for these, so the
   // domains are declared here. Proxy groups and routing rules are
@@ -1845,6 +1845,8 @@ function main(config) {
       "proxies":
         availableRegions.concat([
 
+          "一键代理",
+
           "国内直连"
 
         ])
@@ -1898,8 +1900,8 @@ function main(config) {
   // ================================================================
   // 28.1 Service groups (crypto / banks & brokers)
   //
-  //   Crypto  -> 一键代理, DIRECT, region groups
-  //   Finance -> DIRECT, 一键代理, region groups
+  //   Crypto  -> 一键代理, region groups, 国内直连
+  //   Finance -> 国内直连, region groups, 一键代理
   //
   // The first entry is the default, hence finance groups connect
   // directly unless the user picks another option.
@@ -1922,12 +1924,12 @@ function main(config) {
     if (def.category === "finance") {
 
       proxies =
-        ["DIRECT", "一键代理"].concat(availableRegions);
+        ["国内直连"].concat(availableRegions).concat(["一键代理"]);
 
     } else {
 
       proxies =
-        ["一键代理", "DIRECT"].concat(availableRegions);
+        ["一键代理"].concat(availableRegions).concat(["国内直连"]);
 
     }
 
